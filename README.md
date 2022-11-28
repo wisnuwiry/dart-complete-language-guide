@@ -594,6 +594,63 @@ void main() {
 }
 ```
 
+## Async Programming
+
+Most app need this to:
+
+- Fetching data from the network
+- Writing to a database
+- Reading data from file
+
+Your app nedd to be responsive while waiting for async oepration to complete.
+
+**Future**
+
+Represent the result of an asynchronous operation, with future to wait for an asynchrounous operation to complete. Like fetch API from network.
+
+> In future every operation return either value of exception.
+
+```dart
+Future<String> fetchUserOrder() =>
+    Future.delayed(const Duration(seconds: 2), () => 'Milk');
+
+
+void main(){
+    fetchUserOrder()
+    .then((value) => print('Result of $value')) // wait when success return data
+    .catchError((error) => print('On error: $error')) // handling when return exception error
+    .whenComplete(()=> print('Done')); // when future complete operation
+}
+```
+
+Future use async and await.
+
+```dart
+Future main() async {
+    try {
+        final order = await fetchUserOrder();
+        print(order);
+    }catch(error){
+        print(error);
+    }
+}
+```
+
+**Stream**
+
+A stream is a sequence of asynchronous events. It is like an asynchronous Iterable—where, instead of getting the next event when you ask for it, the stream tells you that there is an event when it is ready.
+
+```dart
+Stream<int> countStream(int n) async* {
+  for (var i = 0; i < n; i++) {
+    await Future.delayed(Duration(seconds: 1));
+    yield i;
+  }
+}
+```
+
+> Use stream broadcast when listen stream more than 1 places
+
 ## References
 
 - [The Complete Dart Language Guide for Beginners and Beyond](https://www.udemy.com/course/complete-dart-guide)
@@ -601,3 +658,4 @@ void main() {
 - [Constructors in Dart](https://www.freecodecamp.org/news/constructors-in-dart/)
 - [Dart Static Keyword](https://www.geeksforgeeks.org/dart-static-keyword/)
 - [Abstract Class In Dart](https://www.geeksforgeeks.org/abstract-classes-in-dart/)
+- [Asynchornous programming: Streams](https://dart.dev/tutorials/language/streams)
