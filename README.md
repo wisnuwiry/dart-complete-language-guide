@@ -511,7 +511,88 @@ void main() {
 
 ## Mixin and Extensions
 
+Make extends the functionality of existing types/calsses.
 
+**Mixins**
+
+- Dart classes can extend only one class
+- Mixins solve this problem -> add functionality and reuse code in your classes
+
+```dart
+mixin Swimming {
+  void swim() => print('swimming');
+}
+
+class Animal {
+  void breathe() => print("breathing");
+}
+
+class Fish extends Animal with Swimming {}
+
+void main() {
+  final fish = Fish();
+  fish.swim();
+}
+```
+
+Drawback of Mixin:
+
+- Mixin can't have constructors
+- Mixin can lead to name collisions
+
+**Extensions**
+
+- Add functionality to existing classes, without modifying them
+- Great when extending classes in the Dart/Flutter SDK or 3rd party libraries
+
+## Error Handling
+
+**Errors vs Exceptions**
+
+Error:
+
+- Programmer mistake (we did something wrong)
+- Calling a function with invalid arguments, index out of bouds etc
+- Program should terminate immediately (not safe to recover)
+
+Exception:
+
+- Failure condition: something unexpected happened
+- Unexpected: out of our control
+- Handle it (e.g show message to user) and recover
+
+**Assertion**
+
+Assertions make it easier to diagnose and fix programming errors in your code.
+
+How to using assertion: `assert(condition, message)`.
+
+```dart
+const value = -1;
+
+// The message is optional to add
+assert(value >= 0, 'Value cannot be negative');
+```
+
+**Example Try Catch**
+
+```dart
+void doSomething(int value) {
+  if (value == 0) throw Exception('Invalid Value 0');
+
+  print('Success');
+}
+
+void main() {
+  try {
+    doSomething(0);
+  } catch (error) {
+    print(error);
+  } finally {
+    print('Yeay.. all operation is done');
+  }
+}
+```
 
 ## References
 
